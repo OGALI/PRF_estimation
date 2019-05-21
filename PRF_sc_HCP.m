@@ -2,7 +2,7 @@
 clear, close all, clc
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
-load('../Data/HCP_41_subjects_phys_GS.mat')
+load('Data/HCP_41_subjects_phys_GS.mat')
 sc = 140;     % choose a scan (sc) from 1-164
 
 GS=GS_all(:,sc);  HR=HR_all(:,sc); resp=zscore(resp_all(:,sc));
