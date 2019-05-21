@@ -5,10 +5,10 @@ clear, close all, clc
 load('Data/HCP_41_subjects_phys_GS.mat')
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
 
-GS=GS_all(:,sc);  HR=HR_all(:,sc); resp=zscore(resp_all(:,sc)); %rows is time, column is scan number
+GS=GS_all(:,sc);  HR=HR_all(:,sc); resp=zscore(resp_all(:,sc)); % rows is time, column is scan number
 Ts_10 = 0.1;                                                       % Sampling period in seconds
-time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;
-timeMR = time_10(ind_BOLD_10);
+time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;    % getting the time series, start from 0 and go up by ts until the scaled version of the last value
+timeMR = time_10(ind_BOLD_10);            % *****how is the sampling frequency changed
 
 figure
 ax1 = subplot(3,1,1);
@@ -22,7 +22,7 @@ title('Respiration (HR)')
 ylabel('Amplitude (a.u.)')
 
 ax3 = subplot(3,1,3);
-plot(timeMR,GS);
+plot(timeMR,GS);            %timeMR is different because time series because of different sampling rate
 title('Global signal (GS)')
 ylabel('Amplitude (a.u.)')
 xlabel('Time (s)')
@@ -30,7 +30,7 @@ xlabel('Time (s)')
 linkaxes([ax1,ax2,ax3],'x')
 xlim([0,max(time_10)])
 
-%% 2: Estimate PRF_sc parameters
+%% 2: Estimate PRF_sc parameters ***
 
 resp_s = smooth(resp,10*1.5) ;
 RF=diff(resp_s); RF=[0;RF(:)]; RF = RF.^2;
