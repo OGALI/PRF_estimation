@@ -32,9 +32,14 @@ xlim([0,max(time_10)])
 
 %% 2: Estimate PRF_sc parameters ***
 
-resp_s = smooth(resp,10*1.5) ;
+
+% ***response resp data; why 10*1.5
+resp_s = smooth(resp,10*1.5);
+% RF is derivative, add a zero and the rest and square everything
 RF=diff(resp_s); RF=[0;RF(:)]; RF = RF.^2;
 
+
+% genetic algorithm  generate with options
 ga_opts = gaoptimset('TolFun',1e-10,'StallGenLimit',20,'Generations',30,'Display','iter','UseParallel',1);   % Display: iter
 options = optimoptions('fmincon','Display','off','Algorithm','interior-point',...
     'UseParallel',true,'MaxIterations',200,'MaxFunctionEvaluations',3000,'OptimalityTolerance',1e-8,'PlotFcn','optimplotfval');    % 'PlotFcn','optimplotfval'
@@ -42,6 +47,7 @@ options = optimoptions('fmincon','Display','off','Algorithm','interior-point',..
 x0 = [  3.1    2.5   5.6    0.9    1.9   2.9   12.5    0.5 ];  
 ub = x0+3;
 lb = x0-3; lb(find(lb<0))=0;
+
 
 h = @(P) PRF_sc_optimize_parameters(P,Ts_10,HR,RF,ind_BOLD_10,GS);
 %     x0 = ga(h,length(ub),[],[],[],[],lb,ub,[],[],ga_opts);
