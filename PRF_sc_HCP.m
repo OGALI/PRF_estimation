@@ -2,13 +2,15 @@
 clear, close all, clc
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
-load('Data/HCP_41_subjects_phys_GS.mat')
+load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/Phys_sum.mat')
+load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/TissueBasedRegressors.mat')
+
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
 
-GS=GS_all(:,sc);  HR=HR_all(:,sc); resp=zscore(resp_all(:,sc)); % rows is time, column is scan number
+GS=WB.MA(:); HR=HRV(:); resp=zscore(resp(:)); % rows is time, column is scan number
 Ts_10 = 0.1;                                                       % Sampling period in seconds
 time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;    % getting the time series, start from 0 and go up by ts until the scaled version of the last value
-timeMR = time_10(ind_BOLD_10);            % indices on where you got an image from the MRI; time_10 is sampling for 10Hz
+% timeMR = time_10(ind_BOLD_10);            % indices on where you got an image from the MRI; time_10 is sampling for 10Hz
 
 figure
 ax1 = subplot(3,1,1);
@@ -17,7 +19,7 @@ title('Heart rate (HR)')
 ylabel('HR (bpm)')
 
 ax2 = subplot(3,1,2);
-plot(time_10,resp)
+plot(time_10,resp_10)
 title('Respiration (HR)')
 ylabel('Amplitude (a.u.)')
 
