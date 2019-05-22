@@ -1,11 +1,15 @@
 function [obj_function,CRF_sc,RRF_sc,HR_conv,RF_conv,r_PRF_sc,yPred]=PRF_sc_optimize_parameters(P,Ts_10,HR,RF,ind_BOLD_10,GS)
 
+
+% *explain this part
 t1=P(1) ; d1=P(2);
 t2=P(3);  d2=P(4);
 t3=P(5); d3 = P(6);
 t4=P(7); d4=P(8);
 
+% number of values
 NV = length(GS);
+% time window; *why do you have a time window
 t_win= 0 :Ts_10:60;
 
 a1= sqrt(t1)/d1; a2= sqrt(t1)*d1 ;

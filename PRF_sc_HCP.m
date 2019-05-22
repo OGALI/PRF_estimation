@@ -48,7 +48,9 @@ x0 = [  3.1    2.5   5.6    0.9    1.9   2.9   12.5    0.5 ];
 ub = x0+3;
 lb = x0-3; lb(find(lb<0))=0;
 
-
+% HR:heart rate; RF:respiratory flow, ind_BOLD_10:indices for
+% downsampling,GS: global signal
+% *why put @(p)
 h = @(P) PRF_sc_optimize_parameters(P,Ts_10,HR,RF,ind_BOLD_10,GS);
 %     x0 = ga(h,length(ub),[],[],[],[],lb,ub,[],[],ga_opts);
 x_opt = fmincon(h,x0,[],[],[],[],lb,ub,[],options);
