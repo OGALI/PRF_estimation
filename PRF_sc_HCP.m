@@ -6,8 +6,8 @@ for i =1:16
 savePath1 = ['/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00', num2str(i)];
 savePath2 = ['/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00', num2str(i)];
 
-load([savePath1,'_Rest1/Phys_sum.mat'])
-load([savePath2,'_Rest1/TissueBasedRegressors.mat'])
+load([savePath1,'_Task/Phys_sum.mat'])
+load([savePath2,'_Task/TissueBasedRegressors.mat'])
 
 
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
@@ -15,8 +15,6 @@ load([savePath2,'_Rest1/TissueBasedRegressors.mat'])
 
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
 
-
-% putting the zscore
 GS=zscore(WB.MA(:)); HR=HRV(:); resp=zscore(resp(:)); % rows is time, column is scan number
 Ts_10 = 0.1;                                                       % Sampling period in seconds
 time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;    % getting the time series, start from 0 and go up by ts until the scaled version of the last value
@@ -88,7 +86,7 @@ fprintf('CRF & RRF (HR & RF): %3.1f%%  \n',r_PRF_sc(1)*100)
 
 
 
-savefig([savePath1, '_Task/PRF.fig'])
+savefig([savePath1,'_Task/PRF.fig'])
 %%  3: Plot output of PRF_sc model (timeseries and curves)  ----------------
 
 smoothPar=5;
