@@ -7,7 +7,7 @@ load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/
 
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
 
-GS=WB.MA(:); HR=HRV(:); resp=zscore(resp(:)); % rows is time, column is scan number
+GS=zscore(WB.MA(:)); HR=HRV(:); resp=zscore(resp(:)); % rows is time, column is scan number
 Ts_10 = 0.1;                                                       % Sampling period in seconds
 time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;    % getting the time series, start from 0 and go up by ts until the scaled version of the last value
 % timeMR = time_10(ind_BOLD_10);            % indices on where you got an image from the MRI; time_10 is sampling for 10Hz
@@ -122,7 +122,7 @@ h2=plot(timeMR,yPred,'LineWidth',lineW);
 title(['Full model; r=',num2str(100*r_PRF_sc(1)),'%'])
 ylabel('Amplitude (a.u.)')
 legend([h1,h2],'Global signal','X_{FM}')
-ylim([yl1, yl2])
+%ylim([yl1, yl2])
 legend('boxoff')
 
 ax4 = subplot(5,3,10:11);
