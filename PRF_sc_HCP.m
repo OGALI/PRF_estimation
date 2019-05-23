@@ -3,12 +3,18 @@ clear, close all, clc
 
 for i =1:16
     
-clear, close all, clc
-load1 = '/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00'+ num2str(i) +'_Task/Phys_sum.mat';
-load2 = '/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00'+num2str(i)+'_Task/TissueBasedRegressors.mat';
+savePath1 = ['/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00', num2str(i)];
+savePath2 = ['/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00', num2str(i)];
 
-load(load1)
-load(load2)
+load([savePath1,'_Task/Phys_sum.mat'])
+load([savePath2,'_Task/TissueBasedRegressors.mat'])
+
+
+
+
+
+
+
 
 
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
@@ -41,6 +47,7 @@ xlabel('Time (s)')
 linkaxes([ax1,ax2,ax3],'x')
 xlim([0,max(time_10)])
 
+savefig([savePath1, '_Task/HeartRateAndRespiration.fig'])
 
 %% 2: Estimate PRF_sc parameters ***
 
@@ -85,6 +92,8 @@ fprintf('RRF (RF): %3.1f%%  \n',r_PRF_sc(3)*100)
 fprintf('CRF & RRF (HR & RF): %3.1f%%  \n',r_PRF_sc(1)*100)
 
 
+
+savefig([savePath1,'_Task/PRF.fig'])
 %%  3: Plot output of PRF_sc model (timeseries and curves)  ----------------
 
 smoothPar=5;
@@ -170,6 +179,9 @@ for ax=ax_list
 end
 
 
+savefig([savePath1,'_Task/output.fig'])
+
+
 
 
 
@@ -177,6 +189,3 @@ end
 
 
 end
-
-
-
