@@ -1,9 +1,9 @@
-
-clear, close all, clc
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
+clear, close all, clc
 load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/Phys_sum.mat')
 load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/TissueBasedRegressors.mat')
+
 
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
 
@@ -90,6 +90,8 @@ yl1 = -5.3; yl2 = 5.5;
 
 screenSize = get(0,'ScreenSize'); xL = screenSize(3); yL = screenSize(4);
 figure
+
+
 set(gcf, 'Position', [0.2*xL 0.2*yL  0.6*xL 0.6*yL ]);
 set(gcf, 'Position', [0.1*xL 0.1*yL  0.8*xL 0.8*yL ]);
 
@@ -100,7 +102,7 @@ title(sprintf('Heart rate (HR; %2.0f±%1.0f bpm )',mean(HR),std(HR)))
 
 ax6 = subplot(5,3,[3,6]);
 plot(t_IR,CRF_sc,'LineWidth',4), grid on
-title('Cardiac Response Function (CRF_{sc}) ')
+title('Cardiac Response Function (CRF_{sc})')
 xlabel('Time (s)'), ylabel('Amplitude (a.u.)')
 xlim([0 60])
 
@@ -108,7 +110,7 @@ ax2 = subplot(5,3,4:5);
 h1=plot(timeMR,smooth(GS,smoothPar),'LineWidth',lineW); hold on
 h2=plot(time_10,HR_conv,'LineWidth', lineW);
 legend([h1,h2],'Global signal', 'X_{HR}')
-title('BOLD fluctuations due to changes in HR')
+title(['BOLD fluctuations due to changes in HR; r=',num2str(100*r_PRF_sc(2)),'%'])
 text(60, 4,  sprintf('r=%3.1f%%  ',  100*r_PRF_sc(2)) ,'FontSize',fontTxt,'FontWeight','bold')
 ylabel('Amplitude (a.u.)')
 ylim([yl1, yl2])
@@ -118,7 +120,7 @@ legend('boxoff')
 ax3 = subplot(5,3,7:8);
 h1=plot(timeMR,smooth(GS,smoothPar),'LineWidth',lineW); hold on
 h2=plot(timeMR,yPred,'LineWidth',lineW);
-title('Full model')
+title(['Full model; r=',num2str(100*r_PRF_sc(1)),'%'])
 text(60, 4,  sprintf('r=%3.1f%%  ',  100*r_PRF_sc(1)) ,'FontSize',fontTxt,'FontWeight','bold')
 ylabel('Amplitude (a.u.)')
 legend([h1,h2],'Global signal','X_{FM}')
@@ -128,8 +130,7 @@ legend('boxoff')
 ax4 = subplot(5,3,10:11);
 h1 = plot(timeMR,smooth(GS,smoothPar),'LineWidth',lineW); hold on
 h2 = plot(time_10,RF_conv,'LineWidth',lineW);
-title('BOLD fluctuations due to changes in respiration')
-text(60, 4,  sprintf('r=%3.1f%%  ',  100*r_PRF_sc(3)) ,'FontSize',fontTxt,'FontWeight','bold')
+title(['BOLD fluctuations due to changes in respiration; r=',num2str(100*r_PRF_sc(3)),'%'])
 legend([h1,h2],'Global signal','X_{RF}'), legend('boxoff')
 ylabel('Amplitude (a.u.)')
 ylim([yl1, yl2])
