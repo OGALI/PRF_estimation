@@ -1,8 +1,17 @@
-%%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
-
+%%  0: Load the data
 clear, close all, clc
-load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/Phys_sum.mat')
-load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/TissueBasedRegressors.mat')
+
+for i =1:16
+    
+clear, close all, clc
+load1 = '/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00'+ num2str(i) +'_Task/Phys_sum.mat';
+load2 = '/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S00'+num2str(i)+'_Task/TissueBasedRegressors.mat';
+
+load(load1)
+load(load2)
+
+
+%%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
 
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
@@ -167,7 +176,7 @@ end
 
 
 
-
+end
 
 
 
