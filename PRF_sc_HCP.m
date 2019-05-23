@@ -35,9 +35,18 @@ xlim([0,max(time_10)])
 
 %% 2: Estimate PRF_sc parameters ***
 
+%derive TIMEindices for mri; Time_10, time_MR
+ind_BOLD_10 = zeros(length(timeMR),1);
+NV = length(timeMR);
+for i = 1:NV
+    [M,I] = min(abs(time_10 - timeMR(i)));
+    
+    ind_BOLD_10(i) = I;
+end
+
 
 % ***response resp data; why 10*1.5
-resp_s = smooth(resp,10*1.5);
+resp_s = smooth(resp_10,10*1.5);
 % RF is derivative, add a zero and the rest and square everything
 RF=diff(resp_s); RF=[0;RF(:)]; RF = RF.^2;
 
