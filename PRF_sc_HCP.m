@@ -111,7 +111,6 @@ h1=plot(timeMR,smooth(GS,smoothPar),'LineWidth',lineW); hold on
 h2=plot(time_10,HR_conv,'LineWidth', lineW);
 legend([h1,h2],'Global signal', 'X_{HR}')
 title(['BOLD fluctuations due to changes in HR; r=',num2str(100*r_PRF_sc(2)),'%'])
-text(60, 4,  sprintf('r=%3.1f%%  ',  100*r_PRF_sc(2)) ,'FontSize',fontTxt,'FontWeight','bold')
 ylabel('Amplitude (a.u.)')
 ylim([yl1, yl2])
 legend('boxoff')
@@ -121,7 +120,6 @@ ax3 = subplot(5,3,7:8);
 h1=plot(timeMR,smooth(GS,smoothPar),'LineWidth',lineW); hold on
 h2=plot(timeMR,yPred,'LineWidth',lineW);
 title(['Full model; r=',num2str(100*r_PRF_sc(1)),'%'])
-text(60, 4,  sprintf('r=%3.1f%%  ',  100*r_PRF_sc(1)) ,'FontSize',fontTxt,'FontWeight','bold')
 ylabel('Amplitude (a.u.)')
 legend([h1,h2],'Global signal','X_{FM}')
 ylim([yl1, yl2])
