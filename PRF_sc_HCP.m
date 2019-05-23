@@ -10,13 +10,6 @@ load([savePath1,'_Rest1/Phys_sum.mat'])
 load([savePath2,'_Rest1/TissueBasedRegressors.mat'])
 
 
-
-
-
-
-
-
-
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
 
