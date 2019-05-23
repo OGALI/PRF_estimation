@@ -32,7 +32,7 @@ xlabel('Time (s)')
 linkaxes([ax1,ax2,ax3],'x')
 xlim([0,max(time_10)])
 
-
+savefig('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/HeartRateAndRespiration.fig')
 %% 2: Estimate PRF_sc parameters ***
 
 %derive TIMEindices for mri; Time_10, time_MR
@@ -75,6 +75,7 @@ fprintf('CRF (HR): %3.1f%%  \n',r_PRF_sc(2)*100)
 fprintf('RRF (RF): %3.1f%%  \n',r_PRF_sc(3)*100)
 fprintf('CRF & RRF (HR & RF): %3.1f%%  \n',r_PRF_sc(1)*100)
 
+savefig('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/PRF.fig')
 
 %%  3: Plot output of PRF_sc model (timeseries and curves)  ----------------
 
@@ -161,8 +162,7 @@ for ax=ax_list
 end
 
 
-
-
+savefig('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/output.fig')
 
 
 
