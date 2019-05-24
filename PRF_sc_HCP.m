@@ -9,14 +9,6 @@ savePath2 = ['/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fM
 load([savePath1,'_Task/Phys_sum.mat'])
 load([savePath2,'_Task/TissueBasedRegressors.mat'])
 
-
-
-
-
-
-
-
-
 %%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
 
 
