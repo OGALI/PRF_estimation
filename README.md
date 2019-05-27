@@ -15,6 +15,7 @@ https://mcgill-my.sharepoint.com/:f:/g/personal/michalis_kassinopoulos_mail_mcgi
 *PRF_sc_HCP.m* is a script that demonstrates how the PRF_sc_optimize_parameters.m is used to find the optimal parameters using numerical optimization techniques. This script uses data from HCP that can be found in the SharePoint link shown earlier. *PRF_sc_HCP.m* consists of three sections. In the first section, the user selects a scan out of 164 scans from 41 subjects (these subjects were chosen based on the quality of their physiological recordings). The second section finds the optimal parameters using a genetic algorithm as well as a gradient-based algorithm. Finally, the last section presents the PRF curves and the associated physiological regressors of the model which can be exported by the user in a textfile and used in fMRI software toolboxes (e.g. FSL, SPM).
 
 
+
 ## Author
 
 Michalis Kassinopoulos, PhD candidate
