@@ -1,8 +1,40 @@
-%%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
+%% 0:   Create vector with all the subject paths
 
-clear, close all, clc
-load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/Phys_sum.mat')
-load('/Users/alinajmaldin/Desktop/SURE/script/PRF_estimation/Data/EEG_fMRI_2017/Raw_data/S001_Task/TissueBasedRegressors.mat')
+subject = dir('Data/EEG_fMRI_2017/Raw_data');
+% removes hidden files from list
+subject(1:3) = [];
+
+temp = extractfield(subject, 'folder');
+stats.path = temp(:);
+
+temp = extractfield(subject, 'name');
+stats.raw_name = temp(:);
+
+names = convertCharsToStrings(extractfield(subject, 'name'));
+stats.ID = names(:);
+
+stats.path = strcat(stats.path,'/' + stats.ID)
+
+% 
+% paths = stats.path;
+% for i = 1:length(paths)
+%     a = zeros(length(paths),1)
+%     stats.HR = a
+% end
+
+%%  1:  Load physiological variables (heart rate and respiration) and global signal (GS) from HCP data
+HR_data = {};
+HR_avgs = {};
+GS_data = {}
+resp_data = {}
+
+paths = stats.path;
+for i = 5:10
+    a = strcat(stats.path,'/Phys_sum.mat');
+    b = strcat(stats.path,'/TissueBasedRegressors.mat');
+    load(a(i))
+    load(b(i))
+
 
 
 sc = 140;     % choosing a scan (sc) from 1-164, 41 patients who have 4 scans each
@@ -33,6 +65,16 @@ linkaxes([ax1,ax2,ax3],'x')
 xlim([0,max(time_10)])
 
 
+HR_data = [HR_data; HR]
+HR_avgs = [HR_avgs; mean(HR)]
+GS_data = [GS_data; GS]
+resp_data = [resp_data; resp]
+end
+
+stats.HR_data = HR_data
+stats.HR_avg = HR_avgs
+stats.GS = GS_data
+stats.resp = resp_data
 %% 2: Estimate PRF_sc parameters ***
 
 %derive TIMEindices for mri; Time_10, time_MR
