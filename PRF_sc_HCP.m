@@ -29,7 +29,7 @@ GS_data = {}
 resp_data = {}
 
 paths = stats.path;
-for i = 5:10
+for i = 1:length(paths)
     a = strcat(stats.path,'/Phys_sum.mat');
     b = strcat(stats.path,'/TissueBasedRegressors.mat');
     load(a(i))
@@ -44,22 +44,22 @@ Ts_10 = 0.1;                                                       % Sampling pe
 time_10 = 0:Ts_10:(length(HR)-1)*Ts_10;    % getting the time series, start from 0 and go up by ts until the scaled version of the last value
 % timeMR = time_10(ind_BOLD_10);            % indices on where you got an image from the MRI; time_10 is sampling for 10Hz
 
-figure
-ax1 = subplot(3,1,1);
-plot(time_10,HR)
-title('Heart rate (HR)')
-ylabel('HR (bpm)')
-
-ax2 = subplot(3,1,2);
-plot(time_10,resp_10)
-title('Respiration (HR)')
-ylabel('Amplitude (a.u.)')
-
-ax3 = subplot(3,1,3);
-plot(timeMR,GS);            %timeMR is different because time series because of different sampling rate
-title('Global signal (GS)')
-ylabel('Amplitude (a.u.)')
-xlabel('Time (s)')
+% figure
+% ax1 = subplot(3,1,1);
+% plot(time_10,HR)
+% title('Heart rate (HR)')
+% ylabel('HR (bpm)')
+% 
+% ax2 = subplot(3,1,2);
+% plot(time_10,resp_10)
+% title('Respiration (HR)')
+% ylabel('Amplitude (a.u.)')
+% 
+% ax3 = subplot(3,1,3);
+% plot(timeMR,GS);            %timeMR is different because time series because of different sampling rate
+% title('Global signal (GS)')
+% ylabel('Amplitude (a.u.)')
+% xlabel('Time (s)')
 
 linkaxes([ax1,ax2,ax3],'x')
 xlim([0,max(time_10)])
@@ -69,6 +69,8 @@ HR_data = [HR_data; HR]
 HR_avgs = [HR_avgs; mean(HR)]
 GS_data = [GS_data; GS]
 resp_data = [resp_data; resp]
+
+close all
 end
 
 stats.HR_data = HR_data
@@ -76,6 +78,11 @@ stats.HR_avg = HR_avgs
 stats.GS = GS_data
 stats.resp = resp_data
 %% 2: Estimate PRF_sc parameters ***
+
+r_PRF_sc_data = []
+
+paths = stats.path;
+for i = 3
 
 %derive TIMEindices for mri; Time_10, time_MR
 ind_BOLD_10 = zeros(length(timeMR),1);
@@ -117,6 +124,12 @@ fprintf('CRF (HR): %3.1f%%  \n',r_PRF_sc(2)*100)
 fprintf('RRF (RF): %3.1f%%  \n',r_PRF_sc(3)*100)
 fprintf('CRF & RRF (HR & RF): %3.1f%%  \n',r_PRF_sc(1)*100)
 
+
+tempMat = {r_PRF_sc}
+r_PRF_sc_data = [r_PRF_sc_data; tempMat];
+end
+
+stats.r_PRF_sc_data = r_PRF_sc_data
 
 %%  3: Plot output of PRF_sc model (timeseries and curves)  ----------------
 
